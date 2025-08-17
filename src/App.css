@@ -62,6 +62,7 @@
 .app-title {
   font-size: 40px;
   margin: 0;
+  justify-content: center;
 }
 
 .app-intro {
@@ -156,4 +157,29 @@
 
 .cl-formField {
   width: 20rem;
+}
+
+@media (max-width: 720px) {
+  .app-main {
+    padding: 1.5rem;
+  }
+  .app-container {
+    padding: 1rem;
+  }
+
+  .cl-form {
+    flex-flow: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .cl-formField {
+    width: 100%;
+  }
+
+  .cl-button,
+  .cl-form > div 
+  {
+    width: 100%;
+  }
 }
