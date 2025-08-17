@@ -1,9 +1,41 @@
 import { Waitlist } from '@clerk/clerk-react'
+import { useEffect, useRef } from 'react'
+import { usePostHog } from 'posthog-js/react'
 import './App.css'
 import BlurText from './blocks/TextAnimations/BlurText/BlurText'
 import ScrollReveal from './blocks/TextAnimations/ScrollReveal/ScrollReveal'
 
 function App() {
+  const posthog = usePostHog()
+  const waitlistContainerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const containerElement = waitlistContainerRef.current
+    if (!containerElement) return
+
+    const handleSubmit = () => {
+      try {
+        // Prefer the Clerk-provided id for the email field
+        const emailInputById = document.getElementById('emailAddress-field') as HTMLInputElement | null
+        const emailInput =
+          (containerElement.querySelector('#emailAddress-field input[type="email"]') as HTMLInputElement | null) ||
+          (containerElement.querySelector('input[type="email"], input[name="email"]') as HTMLInputElement | null)
+
+        const submittedEmail = (emailInputById?.value || emailInput?.value)?.trim()
+        if (submittedEmail) {
+          posthog?.identify(submittedEmail, { email: submittedEmail })
+          posthog?.capture('waitlist_signup', { email: submittedEmail })
+        }
+      } catch {
+        // no-op
+      }
+    }
+
+    // Use capture phase to reliably catch form submissions inside the Clerk component
+    containerElement.addEventListener('submit', handleSubmit, true)
+    return () => containerElement.removeEventListener('submit', handleSubmit, true)
+  }, [posthog])
+
   return (
     <main className="app-main">
       <div className="app-container">
@@ -41,7 +73,7 @@ function App() {
 
         <ScrollReveal as="section" className="signup-section" origin="bottom" distance={24} duration={0.6} stagger={0.12}>
           <h2 className="signup-heading">Be the First to Know</h2>
-          <div className="waitlist-container">
+          <div className="waitlist-container" ref={waitlistContainerRef}>
             <Waitlist />
           </div>
         </ScrollReveal>
