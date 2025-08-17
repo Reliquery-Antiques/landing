@@ -129,8 +129,12 @@
   width: 100%;
 }
 
-.cl-header {
-  display: none;
+.cl-headerTitle {
+  color: white;
+}
+
+.cl-headerSubtitle {
+  color: white;
 }
 
 .cl-formFieldLabel {
