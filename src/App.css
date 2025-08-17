@@ -4,6 +4,10 @@
   text-align: center;
 }
 
+.app-main {
+  padding: 1.5rem;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -160,9 +164,6 @@
 }
 
 @media (max-width: 720px) {
-  .app-main {
-    padding: 1.5rem;
-  }
   .app-container {
     padding: 1rem;
   }
