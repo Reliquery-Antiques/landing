@@ -59,7 +59,9 @@
 
 .app-header {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
   margin-bottom: 32px;
 }
 
@@ -67,6 +69,26 @@
   font-size: 40px;
   margin: 0;
   justify-content: center;
+  grid-column: 2;
+}
+
+/* Brand (logo + title) */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-self: start;
+}
+
+.brand-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+}
+
+.brand-title {
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .app-intro {

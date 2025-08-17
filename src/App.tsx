@@ -40,6 +40,14 @@ function App() {
     <main className="app-main">
       <div className="app-container">
         <header className="app-header">
+          <div className="brand">
+            <img
+              src="/reliquery-white-square.png"
+              alt="ReliQuery logo"
+              className="brand-logo"
+            />
+            <h1 className="brand-title">Reliquery</h1>
+          </div>
           <BlurText
             text={"Built in the Past, Made for the Future"}
             animateBy="words"
